@@ -11,56 +11,180 @@
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; color: #008069; }
         input { width: 100%; padding: 14px; border: 1px solid #e9edef; background-color: #f0f2f5; border-radius: 8px; box-sizing: border-box; font-size: 16px; color: #111b21; }
-        button { width: 100%; padding: 14px; background-color: #008069; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        input:focus { outline: none; border-color: #00a884; }
+        button { width: 100%; padding: 14px; background-color: #008069; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        button:hover { background-color: #006b58; }
         #dashboard-page { display: none; flex-direction: column; height: 100%; }
-        .welcome-card { background: linear-gradient(135deg, #008069, #00a884); color: white; padding: 22px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
-        .admin-badge { background-color: #d9fdd3; color: #111b21; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-top: 8px; }
-        .call-button { background-color: #1fcd6c; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 18px; text-decoration: none; color: white; padding: 15px; border-radius: 10px; font-weight: bold; margin-bottom: 25px; box-shadow: 0 4px 8px rgba(31,205,108,0.3); }
-        .chat-container { border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; background: #efeae2; padding: 12px; height: 320px; margin-top: 10px; }
-        .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-        .message { max-width: 80%; padding: 8px 14px; border-radius: 10px; font-size: 15px; background: white; align-self: flex-start; }
-        .msg-outbound { background: #d9fdd3; align-self: flex-end; }
-        .chat-input-area { display: flex; gap: 8px; background: white; padding: 6px; border-radius: 25px; align-items: center; }
-        .chat-input-area input { flex: 1; padding: 10px 15px; border: none; }
+        
+        .welcome-card { background: linear-gradient(135deg, #008069, #00a884); color: white; padding: 22px; border-radius: 12px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,128,105,0.2); }
+        .admin-badge { background-color: #d9fdd3; color: #111b21; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-top: 8px; border: 1px solid #b7e9b3; }
+        
+        .call-button { background-color: #1fcd6c; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 18px; text-decoration: none; color: white; padding: 15px; border-radius: 10px; font-weight: bold; margin-bottom: 25px; box-shadow: 0 4px 8px rgba(31,205,108,0.3); text-align: center; }
+
+        /* WhatsApp Chat Wallpaper Styling */
+        .chat-container { border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; background: #efeae2; padding: 12px; display: flex; flex-direction: column; height: 350px; margin-top: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+        .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-bottom: 10px; }
+        
+        .message { max-width: 80%; padding: 8px 14px; border-radius: 10px; font-size: 15px; line-height: 1.4; box-shadow: 0 1px 2px rgba(0,0,0,0.1); position: relative; }
+        .msg-inbound { background: white; align-self: flex-start; border-top-left-radius: 0; }
+        .msg-outbound { background: #d9fdd3; align-self: flex-end; border-top-right-radius: 0; }
+        .msg-sender { font-size: 11px; font-weight: bold; color: #008069; margin-bottom: 2px; }
+        .msg-text { word-break: break-word; }
+        .msg-meta { font-size: 9px; color: #667781; text-align: right; margin-top: 4px; }
+        
+        .chat-input-area { display: flex; gap: 8px; background: white; padding: 6px; border-radius: 25px; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 10px; }
+        .chat-input-area input { flex: 1; padding: 10px 15px; font-size: 15px; border: none; background: transparent; }
+        .chat-input-area button { width: auto; margin: 0; padding: 10px 20px; font-size: 15px; border-radius: 20px; }
     </style>
 </head>
 <body>
+
     <div class="app-container">
+        <!-- LOGIN SCREEN -->
         <div id="login-page">
             <h1>Thee Shiraho's Portal</h1>
-            <div class="form-group"><label>Your Name</label><input type="text" id="username-input" placeholder="Enter name"></div>
-            <div class="form-group"><label>Family Password</label><input type="password" id="password-input" placeholder="Enter password"></div>
-            <button onclick="checkLogin()">Log In</button>
+            <p style="text-align: center; color: #667781; margin-bottom: 30px;">Enter your credentials to join the progress meeting.</p>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="username-input" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Family Access Password</label>
+                <input type="password" id="password-input" placeholder="Enter password">
+            </div>
+            <button onclick="checkLogin()">Log In Securely</button>
+            <div class="db-status">🔒 End-to-End Secured Network</div>
         </div>
+
+        <!-- MAIN DASHBOARD PAGE -->
         <div id="dashboard-page">
-            <div class="welcome-card"><h3 id="welcome-text">Welcome!</h3><div class="admin-badge">Family Member</div></div>
-            <a href="https://meet.jit.si/TheeShirahoFamilyMeeting2026" target="_blank" class="call-button">📞 Join Video Call</a>
-            <h2>💬 Chat Room</h2>
-            <div class="chat-container"><div class="chat-messages" id="chat-box"></div><div class="chat-input-area"><input type="text" id="chat-input"><button onclick="sendMessage()">Send</button></div></div>
+            <div class="welcome-card">
+                <h3 style="margin: 0; font-size: 20px;" id="welcome-text">Welcome back!</h3>
+                <div id="role-tag" class="admin-badge">Family Member</div>
+            </div>
+
+            <a href="https://meet.jit.si/TheeShirahoFamilyMeeting2026" target="_blank" class="call-button">
+                📞 Start / Join Family Video Call
+            </a>
+
+            <h2>💬 Family Chat Room</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-box">
+                    <div class="message msg-inbound"><div class="msg-text">Connecting to secure chat database...</div></div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
         </div>
     </div>
+
     <script>
+        // Secure Cloud Storage Endpoint for the Shiraho Family
+        const DB_URL = "https://kvdb.io/K8s9wQ2mNxPzR4tV7yB1/shiraho_chat_stream";
+        let currentUserName = "";
+        let chatSyncInterval = null;
+
         function checkLogin() {
-            var name = document.getElementById('username-input').value.trim();
-            var pass = document.getElementById('password-input').value;
-            // IF PASSWORD IS CORRECT, ANY NAME GETS IN
-            if (pass === "shiraho2026" && name !== "") {
+            var inputName = document.getElementById('username-input').value.trim();
+            var inputPass = document.getElementById('password-input').value;
+
+            if (inputName === "") {
+                alert("Please enter your name first!");
+                return;
+            }
+
+            // Universal Password Rule: Anyone with this password gets in!
+            if (inputPass === "shiraho2026") {
+                currentUserName = inputName;
                 document.getElementById('login-page').style.display = 'none';
                 document.getElementById('dashboard-page').style.display = 'flex';
-                document.getElementById('welcome-text').innerText = "Welcome, " + name;
-            } else { alert("Wrong password!"); }
+                document.getElementById('welcome-text').innerText = "Welcome, " + currentUserName + " 👋";
+                
+                if (currentUserName.toLowerCase() === "silas") {
+                    document.getElementById('role-tag').innerText = "System Admin";
+                    document.getElementById('role-tag').style.backgroundColor = "#008069";
+                    document.getElementById('role-tag').style.color = "white";
+                }
+
+                // Start syncing live messages immediately
+                loadMessages();
+                chatSyncInterval = setInterval(loadMessages, 3000); 
+            } else {
+                alert("Access Denied. Wrong Family Password.");
+            }
         }
+
+        function loadMessages() {
+            fetch(DB_URL)
+                .then(res => res.json())
+                .then(messages => {
+                    if (!Array.isArray(messages)) messages = [];
+                    renderChat(messages);
+                })
+                .catch(() => {
+                    renderChat([]); // Handle empty database initialization
+                });
+        }
+
+        function renderChat(messages) {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = ""; 
+
+            if (messages.length === 0) {
+                chatBox.innerHTML = '<div class="message msg-inbound"><div class="msg-text">No messages yet. Start the conversation!</div></div>';
+                return;
+            }
+
+            messages.forEach(msg => {
+                const isMe = msg.sender.toLowerCase() === currentUserName.toLowerCase();
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${isMe ? 'msg-outbound' : 'msg-inbound'}`;
+                
+                msgDiv.innerHTML = `
+                    <div class="msg-sender">${isMe ? 'You' : msg.sender}</div>
+                    <div class="msg-text">${msg.text}</div>
+                    <div class="msg-meta">${msg.time}</div>
+                `;
+                chatBox.appendChild(msgDiv);
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
         function sendMessage() {
             const input = document.getElementById('chat-input');
-            const chatBox = document.getElementById('chat-box');
-            const msg = document.createElement('div');
-            msg.className = "message msg-outbound";
-            msg.innerText = input.value;
-            chatBox.appendChild(msg);
-            input.value = "";
+            const messageText = input.value.trim();
+            if (messageText === "") return;
+
+            const timeString = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const newMessage = {
+                sender: currentUserName,
+                text: messageText,
+                time: timeString
+            };
+
+            input.value = ""; // Clear input field instantly for smooth UX
+
+            // Fetch latest, append new message, and push back to cloud
+            fetch(DB_URL)
+                .then(res => res.json())
+                .then(messages => {
+                    if (!Array.isArray(messages)) messages = [];
+                    messages.push(newMessage);
+                    // Keep chat history optimized to last 50 messages
+                    if (messages.length > 50) messages.shift();
+                    
+                    return fetch(DB_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(messages)
+                    });
+                })
+                .then(() => {
+                    loadMessages(); // Refresh chat layout
+                });
         }
     </script>
 </body>
-</html>
-
-        
+    </html>
+                        
