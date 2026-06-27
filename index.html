@@ -1,269 +1,66 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thee Shiraho's family Portal</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-            color: #1c1e21;
-            display: flex;
-            justify-content: center;
-        }
-        .app-container {
-            width: 100%;
-            max-width: 450px;
-            background: #ffffff;
-            min-height: 100vh;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-        }
-        h1, h2 { text-align: center; color: #1877f2; margin-top: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #dadbd3; margin: 0; padding: 0; color: #111b21; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 450px; background: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.15); padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; }
+        h1, h2 { text-align: center; color: #008069; margin-top: 20px; }
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccd0d5;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #1877f2;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover { background-color: #166fe5; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; color: #008069; }
+        input { width: 100%; padding: 14px; border: 1px solid #e9edef; background-color: #f0f2f5; border-radius: 8px; box-sizing: border-box; font-size: 16px; color: #111b21; }
+        button { width: 100%; padding: 14px; background-color: #008069; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         #dashboard-page { display: none; flex-direction: column; height: 100%; }
-        .welcome-card {
-            background: linear-gradient(135deg, #1877f2, #0056b3);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .admin-badge {
-            background-color: #28a745;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 5px;
-        }
-        
-        /* WhatsApp Style Call Button */
-        .call-button {
-            background-color: #25D366;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 18px;
-            text-decoration: none;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .call-button:hover { background-color: #20ba5a; }
-
-        /* Chat Room Styling */
-        .chat-container {
-            border: 1px solid #ccd0d5;
-            border-radius: 12px;
-            background: #efeae2; /* Classic WhatsApp web background color */
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            height: 300px;
-            margin-top: 10px;
-        }
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding-bottom: 10px;
-        }
-        .message {
-            max-width: 75%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            line-height: 1.4;
-        }
-        .msg-inbound { background: white; align-self: flex-start; }
+        .welcome-card { background: linear-gradient(135deg, #008069, #00a884); color: white; padding: 22px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+        .admin-badge { background-color: #d9fdd3; color: #111b21; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-top: 8px; }
+        .call-button { background-color: #1fcd6c; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 18px; text-decoration: none; color: white; padding: 15px; border-radius: 10px; font-weight: bold; margin-bottom: 25px; box-shadow: 0 4px 8px rgba(31,205,108,0.3); }
+        .chat-container { border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; background: #efeae2; padding: 12px; height: 320px; margin-top: 10px; }
+        .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .message { max-width: 80%; padding: 8px 14px; border-radius: 10px; font-size: 15px; background: white; align-self: flex-start; }
         .msg-outbound { background: #d9fdd3; align-self: flex-end; }
-        .msg-meta { font-size: 10px; color: #667781; block-size: auto; text-align: right; margin-top: 3px;}
-        
-        .chat-input-area {
-            display: flex;
-            gap: 5px;
-            background: #f0f2f5;
-            padding: 5px;
-            border-radius: 8px;
-        }
-        .chat-input-area input { padding: 8px; font-size: 14px; }
-        .chat-input-area button { width: auto; margin: 0; padding: 8px 15px; font-size: 14px; }
-
-        .error-msg { color: red; font-size: 14px; text-align: center; display: none; margin-bottom: 10px; }
-        .db-status { text-align: center; font-size: 12px; color: #606770; margin-top: 10px; }
+        .chat-input-area { display: flex; gap: 8px; background: white; padding: 6px; border-radius: 25px; align-items: center; }
+        .chat-input-area input { flex: 1; padding: 10px 15px; border: none; }
     </style>
 </head>
 <body>
-
     <div class="app-container">
-
-        <!-- 1. LOGIN PAGE -->
         <div id="login-page">
-            <h1>Thee Shiraho's family Portal</h1>
-            <p style="text-align: center; color: #606770;">Enter your credentials to join the progress meeting.</p>
-            
-            <div class="error-msg" id="login-error">Access Denied. Check your name or password.</div>
-            
-            <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" id="username-input" placeholder="e.g., Silas">
-            </div>
-            <div class="form-group">
-                <label>Family Access Password</label>
-                <input type="password" id="password-input" placeholder="Enter password">
-            </div>
-            <button onclick="checkLogin()">Log In Securely</button>
-            <div class="db-status" id="db-indicator">🌐 Cloud Engine Synced</div>
+            <h1>Thee Shiraho's Portal</h1>
+            <div class="form-group"><label>Your Name</label><input type="text" id="username-input" placeholder="Enter name"></div>
+            <div class="form-group"><label>Family Password</label><input type="password" id="password-input" placeholder="Enter password"></div>
+            <button onclick="checkLogin()">Log In</button>
         </div>
-
-        <!-- 2. MAIN DASHBOARD PAGE -->
         <div id="dashboard-page">
-            <div class="welcome-card">
-                <h3 style="margin: 0;" id="welcome-text">Welcome back!</h3>
-                <div id="role-tag" class="admin-badge">Member</div>
-            </div>
-
-            <!-- LIVE VIDEO/VOICE CALL BUTTON -->
-            <a href="https://meet.jit.si/TheeShirahoFamilyMeeting2026" target="_blank" class="call-button">
-                📞 Join Family Video & Voice Call
-            </a>
-
-            <h2>💬 Family Chat Room</h2>
-            <div class="chat-container">
-                <div class="chat-messages" id="chat-box">
-                    <div class="message msg-inbound">
-                        <strong>System Notice</strong><br>Welcome to the portal chat room!
-                        <div class="msg-meta">System</div>
-                    </div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chat-input" placeholder="Type a message...">
-                    <button onclick="sendMessage()">Send</button>
-                </div>
-            </div>
-
-            <!-- Admin Actions Panel -->
-            <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 2px dashed #ccd0d5; padding-top: 15px;">
-                <h4 style="color: #dc3545; margin: 0 0 10px 0;">🛠️ Admin Controls</h4>
-                <button style="background-color: #343a40; padding: 8px; font-size: 14px;" onclick="alert('Feature deploying soon!')">Clear Room Logs</button>
-            </div>
+            <div class="welcome-card"><h3 id="welcome-text">Welcome!</h3><div class="admin-badge">Family Member</div></div>
+            <a href="https://meet.jit.si/TheeShirahoFamilyMeeting2026" target="_blank" class="call-button">📞 Join Video Call</a>
+            <h2>💬 Chat Room</h2>
+            <div class="chat-container"><div class="chat-messages" id="chat-box"></div><div class="chat-input-area"><input type="text" id="chat-input"><button onclick="sendMessage()">Send</button></div></div>
         </div>
-
     </div>
-
     <script>
-        const SHEETDB_API_URL = "https://sheetdb.io/api/v1/ua5x0zwn4of06";
-        let currentUserName = "";
-
-        function showDashboard(name, role) {
-            currentUserName = name;
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('dashboard-page').style.display = 'flex';
-            document.getElementById('welcome-text').innerText = "Welcome, " + name + " 👋";
-            
-            if (role.toLowerCase() === "admin" || name.toLowerCase().includes("silas")) {
-                document.getElementById('role-tag').innerText = "System Admin";
-                document.getElementById('role-tag').style.backgroundColor = "#dc3545";
-                document.getElementById('admin-panel').style.display = 'block';
-            } else {
-                document.getElementById('role-tag').innerText = "Family Member";
-                document.getElementById('role-tag').style.backgroundColor = "#28a745";
-                document.getElementById('admin-panel').style.display = 'none';
-            }
+        function checkLogin() {
+            var name = document.getElementById('username-input').value.trim();
+            var pass = document.getElementById('password-input').value;
+            // IF PASSWORD IS CORRECT, ANY NAME GETS IN
+            if (pass === "shiraho2026" && name !== "") {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('dashboard-page').style.display = 'flex';
+                document.getElementById('welcome-text').innerText = "Welcome, " + name;
+            } else { alert("Wrong password!"); }
         }
-
         function sendMessage() {
             const input = document.getElementById('chat-input');
-            const messageText = input.value.trim();
-            if (messageText === "") return;
-
             const chatBox = document.getElementById('chat-box');
-            
-            // Build the bubble layout
-            const msgDiv = document.createElement('div');
-            msgDiv.className = "message msg-outbound";
-            msgDiv.innerHTML = `<strong>You</strong><br>${messageText}<div class="msg-meta">Just now</div>`;
-            
-            chatBox.appendChild(msgDiv);
+            const msg = document.createElement('div');
+            msg.className = "message msg-outbound";
+            msg.innerText = input.value;
+            chatBox.appendChild(msg);
             input.value = "";
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function checkLogin() {
-            var inputName = document.getElementById('username-input').value.trim();
-            var inputPass = document.getElementById('password-input').value;
-            var errorBox = document.getElementById('login-error');
-            errorBox.style.display = 'none';
-
-            if (inputName === "") {
-                alert("Please enter your name first!");
-                return;
-            }
-
-            // Master code override for easy access
-            if (inputName.toLowerCase() === "silas" && inputPass === "shiraho2026") {
-                showDashboard("Silas", "Admin");
-                return;
-            }
-
-            // Database loop check
-            fetch(SHEETDB_API_URL)
-                .then(response => response.json())
-                .then(data => {
-                    let userFound = data.find(user => 
-                        user.name.toLowerCase() === inputName.toLowerCase() && 
-                        user.password.toString() === inputPass.toString()
-                    );
-
-                    if (userFound) {
-                        showDashboard(userFound.name, userFound.role || "Member");
-                    } else {
-                        errorBox.style.display = 'block';
-                    }
-                })
-                .catch(err => {
-                    errorBox.style.display = 'block';
-                });
         }
     </script>
 </body>
-    </html>
-    
+</html>
+
+        
