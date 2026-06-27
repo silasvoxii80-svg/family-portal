@@ -1,1 +1,188 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silas Emery (@silasemery54)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+            color: #262626;
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #dbdbdb;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .profile-header {
+            display: flex;
+            padding: 20px;
+            align-items: center;
+            gap: 25px;
+        }
+        .profile-pic-container {
+            flex-shrink: 0;
+        }
+        .profile-pic {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            background: #e1e1e1;
+            border: 2px solid #dbdbdb;
+            overflow: hidden;
+        }
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-grow: 1;
+            text-align: center;
+            font-size: 14px;
+        }
+        .stat-count {
+            font-weight: bold;
+            display: block;
+            font-size: 16px;
+        }
+        .profile-bio {
+            padding: 0 20px 20px 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .real-name {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .edit-btn {
+            width: calc(100% - 40px);
+            margin: 0 20px 20px 20px;
+            padding: 7px 0;
+            background-color: #f0f0f0;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .stories-bar {
+            display: flex;
+            gap: 15px;
+            padding: 0 20px 15px 20px;
+            overflow-x: auto;
+            border-bottom: 1px solid #dbdbdb;
+        }
+        .story-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #d93175;
+            padding: 2px;
+        }
+        .story-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .story-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            padding: 3px;
+        }
+        .grid-item {
+            background-color: #efefef;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <!-- Top Nav Bar -->
+        <div class="top-nav">
+            <span>🔒 silasemery54</span>
+            <span>⋮</span>
+        </div>
+
+        <!-- Header Section -->
+        <div class="profile-header">
+            <div class="profile-pic-container">
+                <div class="profile-pic">
+                    <img src="1000050799.jpg" alt="Silas Emery">
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div><span class="stat-count">2</span>posts</div>
+                <div><span class="stat-count">1.2k</span>followers</div>
+                <div><span class="stat-count">485</span>following</div>
+            </div>
+        </div>
+
+        <!-- Bio Section -->
+        <div class="profile-bio">
+            <span class="real-name">Silas Emery</span>
+            <p style="margin: 0;">
+                🚀 <b>Mobile Developer & Tech Creator</b><br>
+                Designing custom digital spaces & building web platforms.<br>
+                ✨ Sharp style, clean code, and big execution energy.<br>
+                📍 Kenya 🇰🇪
+            </p>
+        </div>
+
+        <div class="edit-btn">Edit Profile</div>
+
+        <!-- Stories Highlights -->
+        <div class="stories-bar">
+            <div class="story-circle"><div class="story-inner"><img src="1000050799.jpg"></div></div>
+            <div class="story-circle"><div class="story-inner"><img src="1000108524.jpg"></div></div>
+        </div>
+
+        <!-- Your Real Photo Grid -->
+        <div class="photo-grid">
+            <div class="grid-item">
+                <img src="1000050799.jpg" alt="Yolo Style">
+            </div>
+            <div class="grid-item">
+                <img src="1000108524.jpg" alt="Outdoor Vibe">
+            </div>
+        </div>
+    </div>
+
+</body>
+  </html>
+              
