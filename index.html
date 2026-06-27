@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thee Shiraho's family Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            color: #1c1e21;
+            display: flex;
+            justify-content: center;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1, h2 { text-align: center; color: #1877f2; margin-top: 40px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd0d5;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #166fe5; }
+        #dashboard-page { display: none; }
+        .welcome-card {
+            background: linear-gradient(135deg, #1877f2, #0056b3);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .admin-badge {
+            background-color: #28a745;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .meeting-box {
+            border-left: 4px solid #1877f2;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 15px;
+        }
+        .error-msg { color: red; font-size: 14px; text-align: center; display: none; margin-bottom: 10px; }
+        .db-status { text-align: center; font-size: 12px; color: #606770; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- 1. LOGIN PAGE -->
+        <div id="login-page">
+            <h1>Thee Shiraho's family Portal</h1>
+            <p style="text-align: center; color: #606770;">Enter your credentials to join the progress meeting.</p>
+            
+            <div class="error-msg" id="login-error">Access Denied. Check your name or password.</div>
+            
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="username-input" placeholder="e.g., Silas">
+            </div>
+            <div class="form-group">
+                <label>Family Access Password</label>
+                <input type="password" id="password-input" placeholder="Enter password">
+            </div>
+            <button onclick="checkLogin()">Log In Securely</button>
+            <div class="db-status" id="db-indicator">🌐 Connected to Cloud Database</div>
+        </div>
+
+        <!-- 2. MAIN DASHBOARD PAGE -->
+        <div id="dashboard-page">
+            <div class="welcome-card">
+                <h3 style="margin: 0;" id="welcome-text">Welcome back!</h3>
+                <div id="role-tag" class="admin-badge">Member</div>
+            </div>
+
+            <h2>Active Proceedings & Meetings</h2>
+            
+            <div class="meeting-box">
+                <strong style="color: #1877f2;">📊 Project Check-in</strong>
+                <p style="margin: 5px 0 0 0; font-size: 14px;">Reviewing family goals, financial contributions, and upcoming projects.</p>
+                <span style="font-size: 12px; color: #606770;">Status: Ongoing</span>
+            </div>
+
+            <div class="meeting-box">
+                <strong style="color: #28a745;">🤝 Next Gathering</strong>
+                <p style="margin: 5px 0 0 0; font-size: 14px;">Agenda setup and scheduling for the next formal family sit-down.</p>
+                <span style="font-size: 12px; color: #606770;">Scheduled: Sunday</span>
+            </div>
+
+            <!-- Admin Actions Panel -->
+            <div id="admin-panel" style="display: none; margin-top: 30px; border-top: 2px dashed #ccd0d5; padding-top: 20px;">
+                <h4 style="color: #dc3545; margin: 0 0 10px 0;">🛠️ Admin Controls (Silas Only)</h4>
+                <button style="background-color: #343a40;" onclick="alert('Feature coming step 2: Adding a new post!')">Create New Meeting Topic</button>
+                <button style="background-color: #6c757d; margin-top: 5px;" onclick="alert('Feature coming step 2: Viewing logs!')">View Member Login History</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const SHEETDB_API_URL = "https://sheetdb.io/api/v1/ua5x0zwn4of06";
+
+        function showDashboard(name, role) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('dashboard-page').style.display = 'block';
+            document.getElementById('welcome-text').innerText = "Welcome, " + name + " 👋";
+            
+            if (role.toLowerCase() === "admin" || name.toLowerCase().includes("silas")) {
+                document.getElementById('role-tag').innerText = "System Admin";
+                document.getElementById('role-tag').style.backgroundColor = "#dc3545";
+                document.getElementById('admin-panel').style.display = 'block';
+            } else {
+                document.getElementById('role-tag').innerText = "Family Member";
+                document.getElementById('role-tag').style.backgroundColor = "#28a745";
+                document.getElementById('admin-panel').style.display = 'none';
+            }
+        }
+
+        function checkLogin() {
+            var inputName = document.getElementById('username-input').value.trim();
+            var inputPass = document.getElementById('password-input').value;
+            var errorBox = document.getElementById('login-error');
+            errorBox.style.display = 'none';
+
+            if (inputName === "") {
+                alert("Please enter your name first!");
+                return;
+            }
+
+            // ⭐ MASTER OVERRIDE KEY FOR SILAS (Works even if spreadsheet is empty!)
+            if (inputName.toLowerCase() === "silas" && inputPass === "shiraho2026") {
+                showDashboard("Silas", "Admin");
+                return;
+            }
+
+            // Normal cloud database check for other entries
+            fetch(SHEETDB_API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    let userFound = data.find(user => 
+                        user.name.toLowerCase() === inputName.toLowerCase() && 
+                        user.password.toString() === inputPass.toString()
+                    );
+
+                    if (userFound) {
+                        showDashboard(userFound.name, userFound.role || "Member");
+                    } else {
+                        errorBox.style.display = 'block';
+                    }
+                })
+                .catch(err => {
+                    errorBox.style.display = 'block';
+                });
+        }
+    </script>
+</body>
+  </html>
+              
