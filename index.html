@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,8 +22,10 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             padding: 20px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
-        h1, h2 { text-align: center; color: #1877f2; margin-top: 40px; }
+        h1, h2 { text-align: center; color: #1877f2; margin-top: 20px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
         input {
@@ -47,13 +49,14 @@
             margin-top: 10px;
         }
         button:hover { background-color: #166fe5; }
-        #dashboard-page { display: none; }
+        #dashboard-page { display: none; flex-direction: column; height: 100%; }
         .welcome-card {
             background: linear-gradient(135deg, #1877f2, #0056b3);
             color: white;
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 20px;
+            text-align: center;
         }
         .admin-badge {
             background-color: #28a745;
@@ -65,13 +68,65 @@
             display: inline-block;
             margin-top: 5px;
         }
-        .meeting-box {
-            border-left: 4px solid #1877f2;
-            background: #f8f9fa;
+        
+        /* WhatsApp Style Call Button */
+        .call-button {
+            background-color: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
             padding: 15px;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+        .call-button:hover { background-color: #20ba5a; }
+
+        /* Chat Room Styling */
+        .chat-container {
+            border: 1px solid #ccd0d5;
+            border-radius: 12px;
+            background: #efeae2; /* Classic WhatsApp web background color */
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+            margin-top: 10px;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-bottom: 10px;
+        }
+        .message {
+            max-width: 75%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        .msg-inbound { background: white; align-self: flex-start; }
+        .msg-outbound { background: #d9fdd3; align-self: flex-end; }
+        .msg-meta { font-size: 10px; color: #667781; block-size: auto; text-align: right; margin-top: 3px;}
+        
+        .chat-input-area {
+            display: flex;
+            gap: 5px;
+            background: #f0f2f5;
+            padding: 5px;
+            border-radius: 8px;
+        }
+        .chat-input-area input { padding: 8px; font-size: 14px; }
+        .chat-input-area button { width: auto; margin: 0; padding: 8px 15px; font-size: 14px; }
+
         .error-msg { color: red; font-size: 14px; text-align: center; display: none; margin-bottom: 10px; }
         .db-status { text-align: center; font-size: 12px; color: #606770; margin-top: 10px; }
     </style>
@@ -96,7 +151,7 @@
                 <input type="password" id="password-input" placeholder="Enter password">
             </div>
             <button onclick="checkLogin()">Log In Securely</button>
-            <div class="db-status" id="db-indicator">🌐 Connected to Cloud Database</div>
+            <div class="db-status" id="db-indicator">🌐 Cloud Engine Synced</div>
         </div>
 
         <!-- 2. MAIN DASHBOARD PAGE -->
@@ -106,25 +161,29 @@
                 <div id="role-tag" class="admin-badge">Member</div>
             </div>
 
-            <h2>Active Proceedings & Meetings</h2>
-            
-            <div class="meeting-box">
-                <strong style="color: #1877f2;">📊 Project Check-in</strong>
-                <p style="margin: 5px 0 0 0; font-size: 14px;">Reviewing family goals, financial contributions, and upcoming projects.</p>
-                <span style="font-size: 12px; color: #606770;">Status: Ongoing</span>
-            </div>
+            <!-- LIVE VIDEO/VOICE CALL BUTTON -->
+            <a href="https://meet.jit.si/TheeShirahoFamilyMeeting2026" target="_blank" class="call-button">
+                📞 Join Family Video & Voice Call
+            </a>
 
-            <div class="meeting-box">
-                <strong style="color: #28a745;">🤝 Next Gathering</strong>
-                <p style="margin: 5px 0 0 0; font-size: 14px;">Agenda setup and scheduling for the next formal family sit-down.</p>
-                <span style="font-size: 12px; color: #606770;">Scheduled: Sunday</span>
+            <h2>💬 Family Chat Room</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-box">
+                    <div class="message msg-inbound">
+                        <strong>System Notice</strong><br>Welcome to the portal chat room!
+                        <div class="msg-meta">System</div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
             </div>
 
             <!-- Admin Actions Panel -->
-            <div id="admin-panel" style="display: none; margin-top: 30px; border-top: 2px dashed #ccd0d5; padding-top: 20px;">
-                <h4 style="color: #dc3545; margin: 0 0 10px 0;">🛠️ Admin Controls (Silas Only)</h4>
-                <button style="background-color: #343a40;" onclick="alert('Feature coming step 2: Adding a new post!')">Create New Meeting Topic</button>
-                <button style="background-color: #6c757d; margin-top: 5px;" onclick="alert('Feature coming step 2: Viewing logs!')">View Member Login History</button>
+            <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 2px dashed #ccd0d5; padding-top: 15px;">
+                <h4 style="color: #dc3545; margin: 0 0 10px 0;">🛠️ Admin Controls</h4>
+                <button style="background-color: #343a40; padding: 8px; font-size: 14px;" onclick="alert('Feature deploying soon!')">Clear Room Logs</button>
             </div>
         </div>
 
@@ -132,10 +191,12 @@
 
     <script>
         const SHEETDB_API_URL = "https://sheetdb.io/api/v1/ua5x0zwn4of06";
+        let currentUserName = "";
 
         function showDashboard(name, role) {
+            currentUserName = name;
             document.getElementById('login-page').style.display = 'none';
-            document.getElementById('dashboard-page').style.display = 'block';
+            document.getElementById('dashboard-page').style.display = 'flex';
             document.getElementById('welcome-text').innerText = "Welcome, " + name + " 👋";
             
             if (role.toLowerCase() === "admin" || name.toLowerCase().includes("silas")) {
@@ -149,6 +210,23 @@
             }
         }
 
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const messageText = input.value.trim();
+            if (messageText === "") return;
+
+            const chatBox = document.getElementById('chat-box');
+            
+            // Build the bubble layout
+            const msgDiv = document.createElement('div');
+            msgDiv.className = "message msg-outbound";
+            msgDiv.innerHTML = `<strong>You</strong><br>${messageText}<div class="msg-meta">Just now</div>`;
+            
+            chatBox.appendChild(msgDiv);
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
         function checkLogin() {
             var inputName = document.getElementById('username-input').value.trim();
             var inputPass = document.getElementById('password-input').value;
@@ -160,13 +238,13 @@
                 return;
             }
 
-            // ⭐ MASTER OVERRIDE KEY FOR SILAS (Works even if spreadsheet is empty!)
+            // Master code override for easy access
             if (inputName.toLowerCase() === "silas" && inputPass === "shiraho2026") {
                 showDashboard("Silas", "Admin");
                 return;
             }
 
-            // Normal cloud database check for other entries
+            // Database loop check
             fetch(SHEETDB_API_URL)
                 .then(response => response.json())
                 .then(data => {
@@ -187,5 +265,5 @@
         }
     </script>
 </body>
-  </html>
-              
+    </html>
+    
